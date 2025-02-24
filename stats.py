@@ -26,7 +26,8 @@ def Goods_by_price(table, ax=None, bins=8, price_min=0, price_max=100000, KDE=Fa
             CAST(REPLACE(price, ' р.', '') AS INTEGER) AS price_int,
             district,
             url
-        FROM {table}
+        FROM 
+            {table}
         WHERE
             price_int > {price_min} AND price_int < {price_max}
         """
@@ -50,7 +51,7 @@ def Goods_by_price(table, ax=None, bins=8, price_min=0, price_max=100000, KDE=Fa
             if pd.notna(mode_value):  
                 ax.axvline(mode_value, color="red", linestyle="--", label=f"Мода#{i+1} = {mode_value};")
     
-    ax.set_xlabel("Цена")
+    ax.set_xlabel("Цена, руб")
     ax.set_ylabel("Плотность")
     ax.set_title(f"Плотность товаров \nпо ценовым диапазонам, таблица '{table}'")
     ax.legend()
@@ -60,10 +61,14 @@ def Goods_by_district(table, ax, title):
     SELECT
         COUNT(title) AS count,
         TRIM(SUBSTR(district, INSTR(district, 'Минск,') + LENGTH('Минск,'))) AS district_name
-    FROM {table}
-    WHERE district LIKE '%Минск,%' COLLATE NOCASE
-    GROUP BY district_name
-    ORDER BY district_name ASC;
+    FROM 
+        {table}
+    WHERE
+        district LIKE '%Минск,%' COLLATE NOCASE
+    GROUP BY 
+        district_name
+    ORDER BY 
+        district_name ASC;
     """
     conn = sqlite3.connect("ads.db")
     df = pd.read_sql_query(sql_query, conn)
@@ -71,7 +76,6 @@ def Goods_by_district(table, ax, title):
 
     bars = ax.bar(df["district_name"], df["count"])
     ax.set_title(title)
-    ax.set_xlabel("Район")
     ax.set_ylabel("Количество")
 
     # Улучшение подписей
@@ -92,7 +96,7 @@ if __name__ == "__main__":
     
     Goods_by_district("guitars", axes[0][0], "Распределение гитар по районам")
     Goods_by_district("synthesizers", axes[1][0], "Распределение синтезаторов по районам")
-    Goods_by_price("synthesizers", axes[0][1], 12, 200, 4000, True)
+    Goods_by_price("guitars", axes[0][1], 12, 200, 4000, True)
     Goods_by_price("synthesizers", axes[1][1], 12, 200, 4000, True)
 
     show_fullscreen(fig)

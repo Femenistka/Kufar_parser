@@ -90,13 +90,14 @@ def parse_ads_for_urls(url_list, table_name):
 # --- Вызов функции с примерами категорий ---
 if __name__ == "__main__":
     guitars = [
-         "https://www.kufar.by/l/r~minsk/gitary/hobbi-sport-i-turizm/bez-posrednikov?cnd=1&cursor=eyJ0IjoiYWJzIiwiZiI6dHJ1ZSwicCI6MywicGl0IjoiMjkwMDQwNjcifQ%3D%3D&mgsn=v.or%3A1&mgt=v.or%3A20&oph=1&sort=lst.d",
-         "https://www.kufar.by/l/r~minsk/gitary/hobbi-sport-i-turizm/bez-posrednikov?cnd=1&cursor=eyJ0IjoiYWJzIiwiZiI6dHJ1ZSwicCI6MiwicGl0IjoiMjkwMDQwNjcifQ%3D%3D&mgsn=v.or%3A1&mgt=v.or%3A20&oph=1&sort=lst.d",
-         "https://www.kufar.by/l/r~minsk/gitary/hobbi-sport-i-turizm/bez-posrednikov?cnd=1&cursor=eyJ0IjoiYWJzIiwiZiI6dHJ1ZSwicCI6MywicGl0IjoiMjkwMDQwOTMifQ%3D%3D&mgsn=v.or%3A1&mgt=v.or%3A20&oph=1&sort=lst.d"
+         "https://www.kufar.by/l/r~minsk/gitary/bez-posrednikov?cnd=1&mgt=v.or%3A20&r_pageType=saved_search",
+         "https://www.kufar.by/l/r~minsk/gitary/bez-posrednikov?cnd=1&cursor=eyJ0IjoiYWJzIiwiZiI6dHJ1ZSwicCI6MiwicGl0IjoiMjkwMDY2MDUifQ%3D%3D&mgt=v.or%3A20&r_pageType=saved_search",
+         "https://www.kufar.by/l/r~minsk/gitary/bez-posrednikov?cnd=1&cursor=eyJ0IjoiYWJzIiwiZiI6dHJ1ZSwicCI6MywicGl0IjoiMjkwMDY2MDUifQ%3D%3D&mgt=v.or%3A20&r_pageType=saved_search",
+         "https://www.kufar.by/l/r~minsk/gitary/bez-posrednikov?cnd=1&cursor=eyJ0IjoiYWJzIiwiZiI6dHJ1ZSwicCI6NCwicGl0IjoiMjkwMDY2MDUifQ%3D%3D&mgt=v.or%3A20&r_pageType=saved_search"
     ]
     synthesizers = [
         "https://www.kufar.by/l/r~minsk/klavishnye/bez-posrednikov?mkb=v.or%3A1%2C25&mki=v.or%3A1%2C5&r_pageType=saved_search",
-        "https://www.kufar.by/l/r~minsk/klavishnye/bez-posrednikov?cursor=eyJ0IjoiYWJzIiwiZiI6dHJ1ZSwicCI6MiwicGl0IjoiMjkwMDQzNDMifQ%3D%3D&mkb=v.or%3A1%2C25&mki=v.or%3A1%2C5&r_pageType=saved_search"
+        "https://www.kufar.by/l/r~minsk/klavishnye/bez-posrednikov?cursor=eyJ0IjoiYWJzIiwiZiI6dHJ1ZSwicCI6MiwicGl0IjoiMjkwMDY2MDgifQ%3D%3D&mkb=v.or%3A1%2C25&mki=v.or%3A1%2C5&r_pageType=saved_search"
     ]
     parse_ads_for_urls(synthesizers, "synthesizers")
-    parse_ads_for_urls(guitars, "guitars")
+    # parse_ads_for_urls(guitars, "guitars")
