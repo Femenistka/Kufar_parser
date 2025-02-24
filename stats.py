@@ -97,6 +97,6 @@ if __name__ == "__main__":
     Goods_by_district("synthesizers", axes[1][0], "Распределение синтезаторов по районам")
     Goods_by_price("guitars", axes[0][1], 12, 200, 4000)
     Goods_by_price("synthesizers", axes[1][1], 12, 200, 4000)
-
+    # Изменение
     show_fullscreen(fig)
     plt.show()
