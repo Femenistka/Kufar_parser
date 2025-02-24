@@ -143,7 +143,7 @@ if __name__ == "__main__":
     # Show_dashboard(save=True, filename="my_dashboard.png")
     Goods_by_price(
                 "guitars", 
-                bins = 12, 
+                bins = 15, 
                 price_min=200, 
                 price_max=4000, 
                 save = True, 
@@ -151,7 +151,7 @@ if __name__ == "__main__":
                 )
     Goods_by_price(
                 "synthesizers", 
-                bins=12, 
+                bins=15, 
                 price_min=200, 
                 price_max=4000, 
                 save=True, 
