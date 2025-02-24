@@ -99,5 +99,5 @@ if __name__ == "__main__":
         "https://www.kufar.by/l/r~minsk/klavishnye/bez-posrednikov?mkb=v.or%3A1%2C25&mki=v.or%3A1%2C5&r_pageType=saved_search",
         "https://www.kufar.by/l/r~minsk/klavishnye/bez-posrednikov?cursor=eyJ0IjoiYWJzIiwiZiI6dHJ1ZSwicCI6MiwicGl0IjoiMjkwMDY2MDgifQ%3D%3D&mkb=v.or%3A1%2C25&mki=v.or%3A1%2C5&r_pageType=saved_search"
     ]
-    parse_ads_for_urls(synthesizers, "synthesizers")
+    # parse_ads_for_urls(synthesizers, "synthesizers")
     # parse_ads_for_urls(guitars, "guitars")
