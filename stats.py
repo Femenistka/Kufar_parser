@@ -21,7 +21,7 @@ def Save_as_csv(db_name):
 
 def Goods_by_price(
         table, 
-        ax=1, 
+        ax=None, 
         bins=8, 
         price_min=0, 
         price_max=100000, 
@@ -29,6 +29,7 @@ def Goods_by_price(
         save = False, 
         folder_name = "graphs", 
         file_name = "goods_by_price.png"):
+    
     sql_query = f"""
         SELECT
             id,
