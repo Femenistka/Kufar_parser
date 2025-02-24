@@ -21,14 +21,14 @@ def Save_as_csv(db_name):
 
 def Goods_by_price(
         table, 
-        ax=None, 
+        ax=None,  # Теперь значение по умолчанию корректное
         bins=8, 
         price_min=0, 
         price_max=100000, 
         KDE=False, 
-        save = False, 
-        folder_name = "graphs", 
-        file_name = "goods_by_price.png"):
+        save=False, 
+        folder_name="graphs", 
+        file_name="goods_by_price.png"):
     
     sql_query = f"""
         SELECT
@@ -37,11 +37,9 @@ def Goods_by_price(
             CAST(REPLACE(price, ' р.', '') AS INTEGER) AS price_int,
             district,
             url
-        FROM 
-            {table}
-        WHERE
-            price_int > {price_min} AND price_int < {price_max}
-        """
+        FROM {table}
+        WHERE price_int > {price_min} AND price_int < {price_max}
+    """
     conn = sqlite3.connect("ads.db")
     df = pd.read_sql_query(sql_query, conn)
     conn.close()
@@ -51,6 +49,7 @@ def Goods_by_price(
     Me = df["price_int"].median()
     Ex = df["price_int"].mean()
 
+    # ✅ Создаём фигуру и ось, если `ax` не передан (для одиночного графика)
     if ax is None:
         fig, ax = plt.subplots(figsize=(8, 5))
         standalone = True  # Флаг для сохранения отдельного графика
@@ -61,21 +60,25 @@ def Goods_by_price(
     sns.histplot(data=df, x="price_int", bins=bins, kde=KDE, ax=ax)
 
     ax.axvline(Ex, color="blue", linestyle="-", label=f"Мат. ожидание = {round(Ex, 2)};", ymax=1)
-    
-
 
     if not Mo.empty:
         for i in range(len(Mo)):
             mode_value = Mo.iloc[i]
             if pd.notna(mode_value):  
                 ax.axvline(mode_value, color="red", linestyle="--", label=f"Мода#{i+1} = {mode_value};")
-    
+
     ax.set_xlabel("Цена, руб")
     ax.set_ylabel("Плотность")
     ax.set_title(f"Плотность товаров \nпо ценовым диапазонам, таблица '{table}'")
     ax.legend()
-    if save :
-        Save_as_png(file_name, folder_name)
+
+    # ✅ Сохраняем график, если передано `save=True`
+    if save and standalone:
+        Save_as_png(fig, file_name, folder_name)
+
+    # ✅ Показываем график только если он одиночный (не часть `dashboard`)
+    if standalone:
+        plt.show()
 
 def Goods_by_district(table, ax, title):
     sql_query = f"""
@@ -138,6 +141,20 @@ def Show_dashboard(save=False, filename="dashboard.png"):
 
 if __name__ == "__main__":
     # Show_dashboard(save=True, filename="my_dashboard.png")
-    Goods_by_price("guitars", 12, 200, 4000, save = True, file_name= "guitars.png")
-    Goods_by_price("synthesizers", 12, 200, 4000, save=True, file_name="synthesizers.png")
+    Goods_by_price(
+                "guitars", 
+                bins = 12, 
+                price_min=200, 
+                price_max=4000, 
+                save = True, 
+                file_name= "guitars.png"
+                )
+    Goods_by_price(
+                "synthesizers", 
+                bins=12, 
+                price_min=200, 
+                price_max=4000, 
+                save=True, 
+                file_name="synthesizers.png"
+                )
 
