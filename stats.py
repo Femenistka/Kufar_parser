@@ -21,7 +21,7 @@ def Save_as_csv(db_name):
 
 def Goods_by_price(
         table, 
-        ax=None, 
+        ax=1, 
         bins=8, 
         price_min=0, 
         price_max=100000, 
@@ -50,11 +50,19 @@ def Goods_by_price(
     Me = df["price_int"].median()
     Ex = df["price_int"].mean()
 
+    if ax is None:
+        fig, ax = plt.subplots(figsize=(8, 5))
+        standalone = True  # Флаг для сохранения отдельного графика
+    else:
+        standalone = False
+
     # Построение гистограммы с KDE
     sns.histplot(data=df, x="price_int", bins=bins, kde=KDE, ax=ax)
 
     ax.axvline(Ex, color="blue", linestyle="-", label=f"Мат. ожидание = {round(Ex, 2)};", ymax=1)
     
+
+
     if not Mo.empty:
         for i in range(len(Mo)):
             mode_value = Mo.iloc[i]
