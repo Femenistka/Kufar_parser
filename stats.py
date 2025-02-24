@@ -2,6 +2,7 @@ import sqlite3
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
+import os
 
 def Save_as_csv(db_name):
     conn = sqlite3.connect(f"{db_name}.db")
@@ -18,7 +19,16 @@ def Save_as_csv(db_name):
     df.to_csv(f"{db_name}.csv", index=False, encoding="utf-8")
     conn.close()
 
-def Goods_by_price(table, ax=None, bins=8, price_min=0, price_max=100000, KDE=False):
+def Goods_by_price(
+        table, 
+        ax=None, 
+        bins=8, 
+        price_min=0, 
+        price_max=100000, 
+        KDE=False, 
+        save = False, 
+        folder_name = "graphs", 
+        file_name = "goods_by_price.png"):
     sql_query = f"""
         SELECT
             id,
@@ -55,6 +65,8 @@ def Goods_by_price(table, ax=None, bins=8, price_min=0, price_max=100000, KDE=Fa
     ax.set_ylabel("Плотность")
     ax.set_title(f"Плотность товаров \nпо ценовым диапазонам, таблица '{table}'")
     ax.legend()
+    if save :
+        Save_as_png(file_name, folder_name)
 
 def Goods_by_district(table, ax, title):
     sql_query = f"""
@@ -86,17 +98,37 @@ def show_fullscreen(fig):
     manager.full_screen_toggle()
     plt.show()
 
-if __name__ == "__main__":
-    # Увеличиваем размеры графиков для читаемости
-    fig, axes = plt.subplots(2, 2, figsize=(16, 10 ))
+def Save_as_png(fig, filename="dashboard.png", folder="graphs"):
     
+    if not os.path.exists(folder):  # Проверяем, существует ли папка
+        os.makedirs(folder)  # Создаём папку
+        print(f"📂 Папка {folder} создана.")
+
+    file_path = os.path.join(folder, filename)
+    fig.savefig(file_path, dpi=300, bbox_inches="tight")
+    print(f"✅ График сохранён в: {file_path}")
+
+def Show_dashboard(save=False, filename="dashboard.png"):
+    
+    fig, axes = plt.subplots(2, 2, figsize=(16, 10))
+
     # Коррекция расстояний между графиками
-    plt.subplots_adjust(hspace=0.5, wspace=0.1, top = 0.9, bottom=0.15)
+    plt.subplots_adjust(hspace=0.5, wspace=0.1, top=0.9, bottom=0.15)
 
     Goods_by_district("guitars", axes[0][0], "Распределение гитар по районам")
     Goods_by_district("synthesizers", axes[1][0], "Распределение синтезаторов по районам")
     Goods_by_price("guitars", axes[0][1], 12, 200, 4000)
     Goods_by_price("synthesizers", axes[1][1], 12, 200, 4000)
-    # Изменение
-    show_fullscreen(fig)
-    plt.show()
+
+    if save:
+        Save_as_png(fig, filename)
+
+    show_fullscreen(fig) 
+    plt.show()  
+
+
+if __name__ == "__main__":
+    # Show_dashboard(save=True, filename="my_dashboard.png")
+    Goods_by_price("guitars", 12, 200, 4000, save = True, file_name= "guitars.png")
+    Goods_by_price("synthesizers", 12, 200, 4000, save=True, file_name="synthesizers.png")
+
