@@ -5,11 +5,7 @@ import pandas as pd
 import time
 
 def parse_ads_for_urls(url_list, table_name):
-    """
-    Функция парсинга данных с сайта Kufar.
-    :param url_list: список URL страниц для парсинга
-    :param table_name: название таблицы в базе данных, в которую будут записываться данные
-    """
+    
     # Подключаемся к базе данных
     conn = sqlite3.connect("ads.db")
     cursor = conn.cursor()

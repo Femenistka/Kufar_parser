@@ -2,7 +2,10 @@ import sqlite3
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
+import matplotlib.colors as mcolors
 import os
+import random
+import Buy_Sell 
 
 def Save_as_csv(db_name):
     conn = sqlite3.connect(f"{db_name}.db")
@@ -75,9 +78,10 @@ def Goods_by_price(
     # ✅ Сохраняем график, если передано `save=True`
     if save and standalone:
         Save_as_png(fig, file_name, folder_name)
-
+    
     # ✅ Показываем график только если он одиночный (не часть `dashboard`)
     if standalone:
+        # buy_sell_level()
         plt.show()
 
 def Goods_by_district(table, ax, title):
@@ -138,17 +142,27 @@ def Show_dashboard(save=False, filename="dashboard.png"):
     show_fullscreen(fig) 
     plt.show()  
 
+def buy_sell_level (Buy_array = Buy_Sell.Buy_price, Sell_arrayv = Buy_Sell.Sell_price):
+    buy = Buy_Sell.Buy_price
+    sell = Buy_Sell.Sell_price
+    for i in range(0 , len(buy)):
+        random_color = mcolors.to_hex((random.random(), random.random(), random.random()))
+        plt.axvline(buy[i], color = random_color, alpha = 1, linewidth = 5)
+        plt.axvline(sell[i], color = random_color, alpha = 1, linewidth = 5)
+
+    plt.show()
+    return 0
 
 if __name__ == "__main__":
     # Show_dashboard(save=True, filename="my_dashboard.png")
-    Goods_by_price(
-                "guitars", 
-                bins = 15, 
-                price_min=200, 
-                price_max=4000, 
-                save = True, 
-                file_name= "guitars.png"
-                )
+    # Goods_by_price(
+    #             "guitars", 
+    #             bins = 15, 
+    #             price_min=200, 
+    #             price_max=4000, 
+    #             save = True, 
+    #             file_name= "guitars.png"
+    #             )
     Goods_by_price(
                 "synthesizers", 
                 bins=15, 
@@ -157,4 +171,4 @@ if __name__ == "__main__":
                 save=True, 
                 file_name="synthesizers.png"
                 )
-
+    
