@@ -85,6 +85,7 @@ def parse_ads_for_urls(url_list, table_name):
 
 # --- Вызов функции с примерами категорий ---
 if __name__ == "__main__":
+
     guitars = [
          "https://www.kufar.by/l/r~minsk/gitary/bez-posrednikov?cnd=1&mgt=v.or%3A20&r_pageType=saved_search",
          "https://www.kufar.by/l/r~minsk/gitary/bez-posrednikov?cnd=1&cursor=eyJ0IjoiYWJzIiwiZiI6dHJ1ZSwicCI6MiwicGl0IjoiMjkwMDY2MDUifQ%3D%3D&mgt=v.or%3A20&r_pageType=saved_search",
@@ -95,5 +96,9 @@ if __name__ == "__main__":
         "https://www.kufar.by/l/r~minsk/klavishnye/bez-posrednikov?mkb=v.or%3A1%2C25&mki=v.or%3A1%2C5&r_pageType=saved_search",
         "https://www.kufar.by/l/r~minsk/klavishnye/bez-posrednikov?cursor=eyJ0IjoiYWJzIiwiZiI6dHJ1ZSwicCI6MiwicGl0IjoiMjkwMDY2MDgifQ%3D%3D&mkb=v.or%3A1%2C25&mki=v.or%3A1%2C5&r_pageType=saved_search"
     ]
-    # parse_ads_for_urls(synthesizers, "synthesizers")
+    synthesizers_and_piano = [
+        "https://www.kufar.by/l/r~minsk/klavishnye/bez-posrednikov?cnd=1&mkb=v.or%3A1%2C25&mki=v.or%3A1%2C5&sort=lst.d",
+        "https://www.kufar.by/l/r~minsk/klavishnye/hobbi-sport-i-turizm/bez-posrednikov?cnd=1&cursor=eyJ0IjoiYWJzIiwiZiI6dHJ1ZSwicCI6MiwicGl0IjoiMjkwMTEzNjMifQ%3D%3D&mkb=v.or%3A1%2C25&mki=v.or%3A1%2C5&sort=lst.d"
+    ]
+    parse_ads_for_urls(synthesizers_and_piano, "synthesizers_and_piano")
     # parse_ads_for_urls(guitars, "guitars")
